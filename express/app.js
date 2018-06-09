@@ -4,6 +4,10 @@ var app = express();
 
 var port = process.env.PORT || 3000;
 
+// ===== view engine
+app.set('view engine', 'ejs');
+
+// ===== middlewares
 app.use(cookieParser());
 app.use('/assets', express.static(__dirname + '/public'));
 app.use('/', (req, res, next) => {
@@ -11,16 +15,18 @@ app.use('/', (req, res, next) => {
     next();
 });
 
+// ===== routes
 app.get('/', (req, res) => {
-    res.send('<html><head><title>Teste</title><link rel="stylesheet" href="/assets/style.css" /></head><body><h1>Hello world!</h1></body></html>');
+    res.render('index');
 });
 
 app.get('/person/:id', (req, res) => {
-    res.send('<html><head><title>Teste</title></head><body><h1>Person: ' + req.params.id + '</h1></body></html>');
+    res.render('person', { id: req.params.id });
 });
 
 app.get('/api', (req, res) => {
     res.json({ firstname: 'John', lastname: 'Doe' });
 });
 
+// ===== start server
 app.listen(port);
