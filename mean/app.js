@@ -4,6 +4,18 @@ var app = express();
 
 var port = process.env.PORT || 3000;
 
+var people = [
+    {
+        name: 'John Doe'
+    },
+    {
+        name: 'Jane Doe'
+    },
+    {
+        name: 'Jim Doe'
+    },
+];
+
 // ===== mongoose
 mongoose.connect('mongodb://root:test12345@ds119682.mlab.com:19682/addressbook');
 var Schema = mongoose.Schema;
@@ -34,7 +46,7 @@ app.use('/', (req, res, next) => {
 
 // ===== routes
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { serverPeople: people });
 });
 
 // ===== start server
