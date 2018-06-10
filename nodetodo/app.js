@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var cors = require('cors');
 
 var config = require('./config');
 
@@ -15,6 +16,8 @@ var port = process.env.PORT || 3000;
 app.use('/assets', express.static(__dirname + '/public'));
  
 app.set('view engine', 'ejs');
+
+app.use(cors({ origin: '*' }));
 
 // ===== mongoose
 mongoose.connect(config.getDbConnectionString());
