@@ -41,11 +41,15 @@ module.exports = (app) => {
                 res.send('Success');
             });
         } else {
+            if (!req.body.todo) {
+                res.send('Required fields are empty!');
+            }
+
             var newTodo = Todos({
-                username: 'test',
+                username: req.body.username || 'user',
                 todo: req.body.todo,
-                isDone: req.body.isDone,
-                hasAttachment: req.body.hasAttachment
+                isDone: req.body.isDone || false,
+                hasAttachment: req.body.hasAttachment || false
             });
             
             newTodo.save((err) => {
